@@ -20,15 +20,7 @@
         float: left;
         padding: 5px;
     }
-
-    .load {
-        font-size: 100px;
-        position: center;
-        background-color: yellow;
-        border: black;
-    }
-
-    .spinner {
+    .loading {
         position: relative;
         display: inline-block;
         width: 100px;
@@ -37,12 +29,12 @@
         transform: translateX(-50%);
     }
     .text-loading{
-        position: absolute; /*부모상대 경로*/
+        position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .spinner-load {
+    .spinner-loading {
         position: absolute;
         left: 0;
         right: 0;
@@ -66,7 +58,7 @@
 <body>
 <main>
     <div>
-        <input class="input" type="text" id="inputType" placeholder="고양이 종류를 넣어주세요." oninput="debounce()"/>
+        <input class="input" type="text" id="inputType" placeholder="고양이 종류를 입력해주세요." oninput="debounce()"/>
     </div>
     <div class="div" id="catDiv">
         <div class="cat-card"></div>
