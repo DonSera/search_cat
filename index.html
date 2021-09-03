@@ -16,11 +16,19 @@
         float: left;
         padding: 5px;
     }
+    .load{
+        font-size: 100px;
+        position: center;
+        background-color: yellow;
+        border: black;
+    }
 </style>
 <body>
 <main>
 <!--    <input class="input" type="text" id="inputType" onchange="setType()"/>-->
-    <label for="inputType"></label><input class="input" type="text" id="inputType" oninput="debounce()"/>
+    <label for="inputType"></label>
+    <input class="input" type="text" id="inputType" oninput="debounce()"/>
+    <div class="load" id="loadDiv"></div>
     <div class="div" id="catDiv">
         <div class="cat-card"></div>
     </div>
