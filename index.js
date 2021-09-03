@@ -2,13 +2,19 @@ let catDiv = document.getElementById('catDiv');
 let inputType = document.getElementById('inputType');
 
 async function setType() {
-    catDiv.innerHTML = `<span class="spinner" id="spinLoadDiv">
-                            <div class="spinner-load"></div>
+    catDiv.innerHTML = `<span class="loading" id="spinLoadDiv">
+                            <div class="spinner-loading"></div>
                             <div class="text-loading">Loading</div>
                         </span>`;
 
     const imgUrlArray = []; //겹치는 url 확인용
     const type = inputType.value;
+
+    if (!type) {
+        catDiv.innerHTML='고양이 종류를 입력해주세요.';
+        return;
+    }
+
     const searchUrl = "https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev/api/cats/search?q=" + type;
     console.log(type);
 
@@ -24,7 +30,7 @@ async function setType() {
             catDiv.append('Message None');
         } else {
             const dataArray = json.data;
-            const arrayLen = Object.keys(dataArray).length;
+            const arrayLen = dataArray.length;
 
             if (arrayLen === 0) {
                 // 입력된 글자가 없는 경우
