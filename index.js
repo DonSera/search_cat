@@ -28,20 +28,12 @@ async function setType() {
                 // 입력된 글자가 없는 경우
                 catDiv.append('Get None');
             } else {
-                const standLoop = 5; //한번에 로딩할 크기
-                if (arrayLen > standLoop) {
-                    const loopDivision = arrayLen / standLoop;
-                    for (let loop = 0; loop < loopDivision; loop++) {
-                        addImgLoop(loop*standLoop, loop*standLoop+standLoop, imgUrlArray, dataArray);
-                    }
-                    addImgLoop(loopDivision * standLoop, arrayLen, imgUrlArray, dataArray);
-                } else {
-                    addImgLoop(0, arrayLen, imgUrlArray, dataArray);
-                }
+                addImgLoop(0, arrayLen, imgUrlArray, dataArray);
             }
         }
     } catch (e) {
         // 에러
+        console.log(e);
         catDiv.append('Error');
     }
 
