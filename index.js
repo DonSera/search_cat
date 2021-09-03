@@ -17,7 +17,7 @@ async function setType() {
             // 결과를 받지 못한 경우
             catDiv.append('None');
         } else {
-            const dataArray = json['data'];
+            const dataArray = json.data;
             if (Object.keys(dataArray).length === 0) {
                 // 입력된 글자가 없는 경우
                 catDiv.append('None');
@@ -25,7 +25,7 @@ async function setType() {
                 let imgUrl;
 
                 for (let i = 0; i < Object.keys(dataArray).length; i++) {
-                    imgUrl = dataArray[i]['url'];
+                    imgUrl = dataArray[i].url;
                     if (imgUrlArray.includes(imgUrl)) continue; // 똑같은거 제외
                     const img = document.createElement("img");
                     img.src = imgUrl;
@@ -48,7 +48,7 @@ async function setType() {
 let timer;
 
 function debounce() {
-    // 단어 단위로 검색 갱신
+    // 단어 단위로 검색정갱신
     if (timer) {
         clearTimeout(timer);
     }
