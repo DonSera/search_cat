@@ -1,9 +1,12 @@
 let catDiv = document.getElementById('catDiv');
 let inputType = document.getElementById('inputType');
-let loadingDiv = document.getElementById('loadDiv');
 
 async function setType() {
-    loadingDiv.innerHTML = 'Loading'; // 로딩 띄우기
+    catDiv.innerHTML = `<span class="spinner" id="spinLoadDiv">
+                            <div class="spinner-load"></div>
+                            <div class="text-loading">Loading</div>
+                        </span>`;
+
     const imgUrlArray = []; //겹치는 url 확인용
     const type = inputType.value;
     const searchUrl = "https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev/api/cats/search?q=" + type;
@@ -14,8 +17,7 @@ async function setType() {
         const res = await fetch(searchUrl);
         const json = await res.json();
         console.log('end fetch');
-        loadingDiv.innerHTML = ''; // 로딩 삭제
-        catDiv.innerHTML = ''; // 이미지 화면에서 지우기
+        catDiv.innerHTML = ''; // loading clear
 
         if (json.message) {
             // 결과를 받지 못한 경우
