@@ -11,7 +11,7 @@ async function setType() {
     const type = inputType.value;
 
     if (!type) {
-        catDiv.innerHTML='고양이 종류를 입력해주세요.';
+        catDiv.innerHTML = '고양이 종류를 입력해주세요.';
         return;
     }
 
@@ -19,26 +19,8 @@ async function setType() {
     console.log(type);
 
     try {
-        console.log('start fetch');
-        const res = await fetch(searchUrl);
-        const json = await res.json();
-        console.log('end fetch');
-        catDiv.innerHTML = ''; // loading clear
-
-        if (json.message) {
-            // 결과를 받지 못한 경우
-            catDiv.append('Message None');
-        } else {
-            const dataArray = json.data;
-            const arrayLen = dataArray.length;
-
-            if (arrayLen === 0) {
-                // 입력된 글자가 없는 경우
-                catDiv.append('Get None');
-            } else {
-                addImgLoop(0, arrayLen, imgUrlArray, dataArray);
-            }
-        }
+        const jsonResult = await getJson(searchUrl); // json 호출
+        addImgLoop(0, jsonResult.length, imgUrlArray, jsonResult)
     } catch (e) {
         // 에러
         console.log(e);
@@ -47,11 +29,31 @@ async function setType() {
 
 }
 
+async function getJson(url) {
+    // api에 url를 불러서 json으로 날린다
+    console.log('start fetch');
+    const json = await fetch(url).then(res => res.json());
+    console.log('end fetch');
+    if (json.message) {
+        // 결과를 받지 못한 경우
+        catDiv.innerHTML = 'Message None';
+        return [];
+    } else {
+        const jsonData = json.data;
+        if (jsonData.length === 0) {
+            catDiv.innerHTML = 'Get None';
+            return [];
+        }  // 입력된 글자가 없는 경우
+        else return jsonData;
+    }
+}
+
 function addImgLoop(start, end, imgUrlArray, dataArray) {
     // 이미지&종류 loop를 div에 넣기
     let imgUrl;
     let name;
     let htmlString = ``;
+    catDiv.innerHTML = ''; // clear
     for (let i = start; i < end; i++) {
         imgUrl = dataArray[i].url;
         name = dataArray[i].name;
