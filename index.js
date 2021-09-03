@@ -50,9 +50,14 @@ function addImgLoop(start, end, imgUrlArray, dataArray) {
     for (let i = start; i < end; i++) {
         imgUrl = dataArray[i].url;
         name = dataArray[i].name;
+        const nameArray = name.split(' / ');
         if (imgUrlArray.includes(imgUrl)) continue; // 똑같은거 제외
         imgUrlArray.push(imgUrl);
-        htmlString += `<div class="cat-card"><img src="${imgUrl}" alt="고양이" width="200" height="200"><p>${name}</p></div>`;
+        htmlString += `<div class="cat-card">
+                            <img src="${imgUrl}" alt="고양이" width="200" height="200">
+                            <p>${nameArray[0]}</p>
+                            <p>${nameArray[1]}</p>
+                        </div>`;
     }
     const divImg = document.createElement("div");
     divImg.innerHTML = htmlString;

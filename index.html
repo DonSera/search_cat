@@ -12,12 +12,18 @@
     .div{
         padding: 30px;
     }
+    .cat-card{
+        float: left;
+        padding: 5px;
+    }
 </style>
 <body>
 <main>
 <!--    <input class="input" type="text" id="inputType" onchange="setType()"/>-->
-    <input class="input" type="text" id="inputType" oninput="debounce()"/>
-    <div class="div" id="catDiv"></div>
+    <label for="inputType"></label><input class="input" type="text" id="inputType" oninput="debounce()"/>
+    <div class="div" id="catDiv">
+        <div class="cat-card"></div>
+    </div>
 
     <script type="text/javascript" src="index.js"></script>
 </main>
