@@ -28,11 +28,11 @@ async function setType() {
                 // 입력된 글자가 없는 경우
                 catDiv.append('Get None');
             } else {
-                const standLoop = 15; //한번에 로딩할 크기
+                const standLoop = 5; //한번에 로딩할 크기
                 if (arrayLen > standLoop) {
                     const loopDivision = arrayLen / standLoop;
                     for (let loop = 0; loop < loopDivision; loop++) {
-                        addImgLoop(0, standLoop, imgUrlArray, dataArray);
+                        addImgLoop(loop*standLoop, loop*standLoop+standLoop, imgUrlArray, dataArray);
                     }
                     addImgLoop(loopDivision * standLoop, arrayLen, imgUrlArray, dataArray);
                 } else {
@@ -48,7 +48,7 @@ async function setType() {
 }
 
 function addImgLoop(start, end, imgUrlArray, dataArray) {
-    // 이미지를 div에 넣기
+    // 이미지&종류 loop를 div에 넣기
     let imgUrl;
     let name;
     let htmlString = ``;
