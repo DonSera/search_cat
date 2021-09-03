@@ -2,7 +2,7 @@ let catDiv = document.getElementById('catDiv');
 let inputType = document.getElementById('inputType');
 
 async function setType() {
-    let imgUrlArray = [];
+    const imgUrlArray = [];
     catDiv.innerHTML = '';
 
     const type = inputType.value;
