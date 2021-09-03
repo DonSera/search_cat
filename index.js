@@ -8,7 +8,6 @@ async function setType() {
     const type = inputType.value;
     const searchUrl = "https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev/api/cats/search?q=" + type;
     console.log(type);
-    // console.log(searchUrl);
 
     try {
         const res = await fetch(searchUrl);
@@ -20,7 +19,7 @@ async function setType() {
         } else {
             const dataArray = json['data'];
             if (Object.keys(dataArray).length === 0) {
-                // 안에 아무것도 없는 경우
+                // 입력된 글자가 없는 경우
                 catDiv.append('None');
             } else {
                 let imgUrl;
@@ -49,11 +48,12 @@ async function setType() {
 let timer;
 
 function debounce() {
+    // 단어 단위로 검색 갱신
     if (timer) {
-        clearTimeout(timer)
+        clearTimeout(timer);
     }
     timer = setTimeout(() => {
-        setType()
-    }, 500)
+        setType();
+    }, 500);
 }
 
