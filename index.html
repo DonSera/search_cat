@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .input{
+        alignment: center;
+        width: 30%;
+    }
+    .div{
+        padding: 30px;
+    }
+</style>
+<body>
+<main>
+<!--    <input class="input" type="text" id="inputType" onchange="setType()"/>-->
+    <input class="input" type="text" id="inputType" oninput="debounce()"/>
+    <div class="div" id="catDiv"></div>
+
+    <script type="text/javascript" src="index.js"></script>
+</main>
+</body>
+</html>
