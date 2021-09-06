@@ -1,10 +1,12 @@
 let catDiv = document.getElementById('catDiv');
 let inputType = document.getElementById('inputType');
+let timer; // debounce에 사용
+
 
 async function setType() {
     loadingImg();
 
-동    //겹치는 url 확인용
+    //겹치는 url 확인용
     const imgUrlArray = [];
     const type = inputType.value;
 
@@ -17,7 +19,7 @@ async function setType() {
 
     try {
         // IntersectionObserver 를 등록한다.
-        const observer = makeInterOb;
+        const observer = makeInterOb();
 
         // json 호출
         const jsonResult = await getJson(type);
@@ -79,7 +81,6 @@ function makeInterOb() {
             }
         })
     }
-
     return new IntersectionObserver(callback, options)
 }
 
@@ -129,8 +130,6 @@ function addImgLoop(start, end, imgUrlArray, dataArray) {
     catDiv.append(divImg);
 }
 
-
-let timer;
 
 function debounce() {
     // 단어 단위로 검색정갱신
