@@ -11,7 +11,7 @@ async function setType() {
     const type = inputType.value;
 
     if (!type) {
-        catDiv.innerHTML = '고양이 종류를 입력해주세요.';
+        setMainDiv('고양이 종류를 입력해주세요.');
         return;
     }
 
@@ -51,12 +51,12 @@ async function getJson(url) {
 
     if (json.message) {
         // 결과를 받지 못한 경우
-        catDiv.innerHTML = 'Message None';
+        setMainDiv('Message None');
         return [];
     } else {
         const jsonData = json.data;
         if (jsonData.length === 0) {
-            catDiv.innerHTML = 'Get None';
+            setMainDiv('Get None');
             return [];
         }  // 입력된 글자가 없는 경우
         else return jsonData;
@@ -84,13 +84,17 @@ function makeInterOb() {
     return new IntersectionObserver(callback, options)
 }
 
+function setMainDiv(str){
+    catDiv.innerHTML = str;
+}
 
 function loadingImg() {
     // 로딩 동그라미가 나오게
-    catDiv.innerHTML = `<span class="loading" id="spinLoadDiv">
-                            <div class="spinner-loading"></div>
-                            <div class="text-loading">Loading</div>
-                        </span>`;
+    const loading = `<span class="loading" id="spinLoadDiv">
+                        <div class="spinner-loading"></div>
+                        <div class="text-loading">Loading</div>
+                    </span>`;
+    setMainDiv(loading);
 }
 
 
@@ -99,7 +103,7 @@ function addImgLoop(start, end, imgUrlArray, dataArray) {
     let imgUrl;
     let name;
     let htmlString = ``;
-    catDiv.innerHTML = ''; // clear
+    setMainDiv(''); // clear
 
     for (let i = start; i < end; i++) {
         imgUrl = dataArray[i].url;
@@ -125,9 +129,7 @@ function addImgLoop(start, end, imgUrlArray, dataArray) {
         }
 
     }
-    const divImg = document.createElement("div");
-    divImg.innerHTML = htmlString;
-    catDiv.append(divImg);
+    setMainDiv(htmlString);
 }
 
 
