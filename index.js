@@ -2,10 +2,7 @@ let catDiv = document.getElementById('catDiv');
 let inputType = document.getElementById('inputType');
 
 async function setType() {
-    catDiv.innerHTML = `<span class="loading" id="spinLoadDiv">
-                            <div class="spinner-loading"></div>
-                            <div class="text-loading">Loading</div>
-                        </span>`;
+    loadingImg();
 
     const imgUrlArray = []; //겹치는 url 확인용
     const type = inputType.value;
@@ -46,6 +43,13 @@ async function getJson(url) {
         }  // 입력된 글자가 없는 경우
         else return jsonData;
     }
+}
+
+function loadingImg() {
+    catDiv.innerHTML = `<span class="loading" id="spinLoadDiv">
+                            <div class="spinner-loading"></div>
+                            <div class="text-loading">Loading</div>
+                        </span>`;
 }
 
 function addImgLoop(start, end, imgUrlArray, dataArray) {
