@@ -16,8 +16,35 @@ async function setType() {
     console.log(type);
 
     try {
+        const options = {
+            root: null,
+            rootMargin: '0px 0px 10px 0px', //(top, right, bottom, left)
+            threshold: 1.0 //100% 보여질때 실행
+        }
+
+        let callback = (entries, observer) => {
+            entries.forEach( entry => {
+                // 관찰 대상이 viewport 안에 들어온 경우 image 로드
+                if (entry.isIntersecting) {
+                    console.log(entry);
+                    entry.target.src = entry.target.dataset.src;
+                    observer.unobserve(entry.target);
+                }
+            })
+        }
+
+        // IntersectionObserver 를 등록한다.
+        const observer = new IntersectionObserver(callback, options)
+
         const jsonResult = await getJson(searchUrl); // json 호출
-        addImgLoop(0, jsonResult.length, imgUrlArray, jsonResult)
+        addImgLoop(0, jsonResult.length, imgUrlArray, jsonResult);
+
+        // 관찰할 대상을 선언하고, 해당 속성을 관찰시킨다.
+        const images = document.querySelectorAll('.lazy');
+        images.forEach((el) => {
+            observer.observe(el);
+        })
+
     } catch (e) {
         // 에러
         console.log(e);
@@ -46,6 +73,7 @@ async function getJson(url) {
 }
 
 function loadingImg() {
+    // 로딩 동그라미가 나오게
     catDiv.innerHTML = `<span class="loading" id="spinLoadDiv">
                             <div class="spinner-loading"></div>
                             <div class="text-loading">Loading</div>
@@ -64,11 +92,20 @@ function addImgLoop(start, end, imgUrlArray, dataArray) {
         const nameArray = name.split(' / ');
         if (imgUrlArray.includes(imgUrl)) continue; // 똑같은거 제외
         imgUrlArray.push(imgUrl);
-        htmlString += `<div class="cat-card">
+        if (i < 15) {
+            htmlString += `<div class="cat-card">
                             <img src="${imgUrl}" alt="고양이" width="200" height="200">
                             <p>${nameArray[0]}</p>
                             <p>${nameArray[1]}</p>
                         </div>`;
+        } else {
+            htmlString += `<div class="cat-card">
+                            <img data-src="${imgUrl}" class="lazy" alt="고양이" width="300" height="300">
+                            <p>${nameArray[0]}</p>
+                            <p>${nameArray[1]}</p>
+                        </div>`;
+        }
+
     }
     const divImg = document.createElement("div");
     divImg.innerHTML = htmlString;
