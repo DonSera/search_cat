@@ -84,7 +84,7 @@ function makeInterOb() {
     return new IntersectionObserver(callback, options)
 }
 
-function setMainDiv(str){
+function setMainDiv(str) {
     catDiv.innerHTML = str;
 }
 
